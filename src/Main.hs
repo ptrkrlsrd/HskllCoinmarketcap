@@ -32,14 +32,11 @@ instance ToJSON Ticker
 newLine :: String
 newLine = "\n"
 
-
 jsonURL :: String -> String
 jsonURL tickerName = "https://api.coinmarketcap.com/v1/ticker/" ++ tickerName
 
-
 getJSON :: String -> IO B.ByteString
 getJSON tickerName = simpleHttp (jsonURL tickerName)
-
 
 printInfo :: Ticker -> String
 printInfo x = 
@@ -54,7 +51,6 @@ printInfo x =
   "\t24h: " ++ (percent_change_24h x) ++ "%" ++ newLine ++
   "\t7d:  " ++ (percent_change_7d x) ++ newLine
 
-
 printSummary :: Ticker -> String
 printSummary x = 
   (name x) ++ "(" ++ (symbol x) ++ ") is at " ++ (price_usd x)  ++ newLine ++
@@ -68,20 +64,17 @@ runForeverWithDelay period action = forever $ do
           action
           threadDelay (round $ period * 1000 * 1000)
 
-
 fetchDataAndPrint :: String -> (Ticker -> String) -> IO ()
 fetchDataAndPrint tickerName f = do
-  d <- (eitherDecode <$> (getJSON tickerName))  -- Decode the JSON string
+  d <- (eitherDecode <$> (getJSON tickerName))
   case d of
-          Left err -> putStrLn err -- If the decoder didn't manage to decode the JSON
-          Right ps -> putStrLn (f (head ps)) -- If the decoding worked
-
+          Left err -> putStrLn err
+          Right ps -> putStrLn (f (head ps))
 
 main :: IO ()
 main = do
   args <- getArgs
   case args of 
-          []    -> do putStrLn "Please enter a TickerName (Ethereum, Bitcoin, Ripple, etc)"
+          []    -> do putStrLn "Please enter a TickerName (Ethereum, Bitcoin, Ripple, etc), and optionally a delay in seconds as the second argument"
           (x:[]) -> do (fetchDataAndPrint x printInfo)
           (x:y:[]) -> do runForeverWithDelay (read y :: Double) $ (fetchDataAndPrint x printSummary)
-
