@@ -1,12 +1,11 @@
-# HskllCryptoStats
+# HskllCoinmarketcap
+CLI for getting crypto prices from Coinmarketcap written in Haskell
 
 ## Usage
 
-    Build using
-        ghc main.hs
-    Then run with this command
-        ./main ripple
-
+Build by running ``ghc main.hs``
+Then run with this command ``./main ripple``
+        
 ## Example output
 ```
 ./main ripple
