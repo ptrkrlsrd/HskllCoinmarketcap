@@ -4,7 +4,7 @@ CLI for getting crypto prices from Coinmarketcap written in Haskell
 ## Usage
 
 Build by running ``ghc main.hs``
-Then run with this command ``./main ripple``
+Then run with this command ``./main <cryptocurrency>``. For example `./main ripple`
         
 ## Example output
 ```
