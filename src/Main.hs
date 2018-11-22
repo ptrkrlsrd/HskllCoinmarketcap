@@ -60,9 +60,9 @@ printSummary x =
 
 
 runForeverWithDelay :: Double -> IO () -> IO ()
-runForeverWithDelay period action = forever $ do
+runForeverWithDelay delay action = forever $ do
           action
-          threadDelay (round $ period * 1000 * 1000)
+          threadDelay (round $ delay * 1000 * 1000)
 
 fetchDataAndPrint :: String -> (Ticker -> String) -> IO ()
 fetchDataAndPrint tickerName f = do
